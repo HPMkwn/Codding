@@ -6,7 +6,7 @@ int minOperations(string s) {
 
     for(auto x: s){
         cnt1 += x -'0' !=c1;
-        cnt2 += x- '0' !=c2;
+        cnt2 += x -'0' !=c2;
         swap(c1,c2);
     }  
     return min(c1,c2);  

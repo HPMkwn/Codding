@@ -23,8 +23,8 @@ ListNode* reverseList(ListNode* head) {
     return newList;
 }
 
-bool isPalindrome(ListNode* head) {
-    if(!head && !head->next)return true;
+void reorderList(ListNode* head) {
+    if (!head || !head->next || !head->next->next) return;
 
     ListNode* slow = head;
     ListNode* fast = head;
@@ -34,15 +34,27 @@ bool isPalindrome(ListNode* head) {
         fast = fast->next->next;
     }
 
-    ListNode* rev = reverseList (slow);
+    ListNode* rev = slow->next;
+    slow->next = NULL;
+    rev = reverseList(rev);
     ListNode* cur = head;
 
-    while (rev) {
-        if (rev->val != cur->val) return false;
-
-        rev = rev->next;
+    ListNode* ret = new ListNode(-1);
+    ListNode* temp = ret;
+    while (rev && cur) {
+        ret->next = cur;
         cur = cur->next;
+        ret = ret->next;
+        ret->next = rev;
+        rev = rev->next;
+        ret = ret->next;
     }
 
-    return true;
+    if (cur) {
+        ret->next = cur;
+    }
+    if (rev) {
+        ret->next = rev;
+    }
+    head = temp->next;
 }
