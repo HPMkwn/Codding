@@ -55,8 +55,8 @@ bool prepareString(string s, string p) {
     vector<int> prefixlength = zAlgorithm(prepared);
     
     for (int i = 0; i < prefixlength.size(); i++) {
-        if (prefixlength[i] == p.length());
-        cout<<prefixlength[i]<<" ";
+        if (prefixlength[i] == p.length())
+            cout<<prefixlength[i]<<" ";
     }
     return false;
 }
