@@ -1,42 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+vector<int> largestRange2(vector<int> array){
+
+}
+
 vector<int> largestRange(vector<int> array)
 {
-    if(array.empty())return {-1,-1};
-    if(array.size()==1)return {array[0],array[0]};
-    unordered_map<int,bool>mp;
-    vector<int> bestRange;
-    int longestRange = INT_MIN;
-    for(int i=0;i<array.size();i++)mp[array[i]]=true;
     
-    for(int val : array){
-        if(!mp[val])continue;
-        mp[val] = false;
-        auto currentValue = mp[val];
-        int currentLength =1;
-        int left = currentValue - 1;
-        int right = currentValue + 1;
+    set<int> s;
+    for(int i=0;i<array.size();i++)s.insert(array[i]);
 
-        while (mp.find(left)!= mp.end())
-        {
-            mp[left]=false;
-            left--;
-            currentLength++;
-        }
-        while (mp.find(right)!= mp.end())
-        {
-            mp[right]=false;
-            right++;
-            currentLength++;
-        }
-        if(currentLength > longestRange){
-            longestRange = currentLength;
-            bestRange = {left+1,right-1};
-        }
+    vector<int> finalPair{-1,-1};
+
+    for(auto itr=s.begin();itr!= s.end();){
+        auto st = *itr;
+        auto temp = st;
+        while((itr!=s.end() && (*itr == temp+1 || *itr == st))){
+            if((finalPair[1] -finalPair[0]) <= ((*itr)-st)){
+                finalPair[0] = st;
+                finalPair[1] = *itr;
+            }
+            temp = *itr;
+            itr++;
+        }			
     }
 
-    return bestRange;
+    return finalPair;
 }
 
 int main(){

@@ -102,8 +102,8 @@ int main()
     root = insert(root, 50);
 
     inorder(root);
-    node *serchednode = search(root, 15, 0);
-    cout << serchednode->data;
+    // node *serchednode = search(root, 15, 0);
+    // cout << serchednode->data;
 
     cout << "\n";
     root = remove(root, 15);

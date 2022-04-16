@@ -1,42 +1,36 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-void fourNumberSum(vector<int> array, int targetSum) {
+vector<vector<int>> fourNumberSum(vector<int> array, int targetSum) {
 
-    map<int,vector<pair<int,int>>>mp;
-    map<pair<pair<int,int>,pair<int,int>>,bool> s;
+    int n= array.size();
+    unordered_map<int,vector<vector<int>>> allSumUpPairs;
+
     vector<vector<int>> ret;
-    ret.resize(array.size()*array.size(),vector<int>(4));
-    sort(array.begin(),array.end());
-
-    for(int i=0;i<array.size();i++)
-    for(int j=i+1;j<array.size();j++){
-        mp[array[i]+array[j]].push_back({array[i],array[j]});
-    }
-
-    map<int,vector<pair<int,int>>>::iterator ptr;
-    map<int,vector<pair<int,int>>>::iterator str;
-    int k=0;
-
-    while (ptr->first * 2 <=targetSum && ptr!=mp.end())
-    {
-        if((str = mp.find(targetSum - ptr->first)) != mp.end()){
-            for(int i=0;i<ptr->second.size();i++)
-            for(int j=0;j<str->second.size();j++){
-                
+    for(int i=0;i<n;i++){
+        for(int j=i+1;j<n;j++){
+            int currentSum = array[i] + array[j];
+            int difference = targetSum - currentSum;
+            if(allSumUpPairs.find(difference)!= allSumUpPairs.end()){
+                for(vector<int> pair : allSumUpPairs[difference]){
+                    pair.push_back(array[i]);
+                    pair.push_back(array[j]);
+                    ret.push_back(pair);
+                }
             }
         }
+        for(int k=0;k<i;k++){
+            int currentSum = array[i] + array[k];
+            allSumUpPairs[currentSum].push_back({array[i],array[k]});
+        }
     }
-    
+
+  return ret;
 }
 
 
-int main(){
-    int n,targetSum;
-    cin>>n>>targetSum;
-    vector<int> array(n,0);
-    for(int i=0;i<n;i++)cin>>array[i];
 
-    fourNumberSum(array,targetSum);
+int main(){
+    
     return 0;
 }

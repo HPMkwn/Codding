@@ -87,6 +87,7 @@ public:
             }
             cout<<heap[j]<<" ";
         }
+        cout<<"\n";
     }
 
 
@@ -124,6 +125,7 @@ public:
 
 int main(){
     MinHeap h({9,8,7,6,5,4,3,2,1});
+    h.display();
     cout<<h.peek()<<"\n";
     cout<<h.remove()<<"\n";
     h.display();
